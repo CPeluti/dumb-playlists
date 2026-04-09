@@ -1,0 +1,12 @@
+devices:
+  - name: teste
+    path: /mnt/teste
+    allowlist: 
+      - playlist1
+      - playlist2
+
+  - name: teste2
+    path: /mnt/teste2
+    allowlist: 
+      - playlist3
+      - playlist4
