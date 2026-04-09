@@ -18,7 +18,7 @@ func ReadPlaylist(path string) (string, error) {
 	check(err)
 	return string(data), nil
 }
-func DefineSongOrder(splittedLines [][]string) ([][]string, error) {
+func DefineTrackOrder(splittedLines [][]string) ([][]string, error) {
 	digitCount := len(strconv.Itoa(len(splittedLines)))
 
 	for index, line := range splittedLines {
@@ -43,6 +43,6 @@ func ParsePlaylist(path string) ([][]string, error) {
 	for index, line := range lines {
 		splittedLines[index] = strings.Split(line, "/")
 	}
-	splittedLines, _ = DefineSongOrder(splittedLines)
+	splittedLines, _ = DefineTrackOrder(splittedLines)
 	return splittedLines, nil
 }

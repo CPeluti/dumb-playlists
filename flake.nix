@@ -9,6 +9,8 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
+          gopls
+          delve
           go
         ];
       };

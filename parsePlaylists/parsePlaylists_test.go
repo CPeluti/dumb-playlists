@@ -11,7 +11,7 @@ func TestDefineSongOrder(t *testing.T) {
 			{"folder", "song"},
 			{"folder", "song2"},
 		}
-		got, _ := DefineSongOrder(lines)
+		got, _ := DefineTrackOrder(lines)
 		expected := [][]string{
 			{"folder", "0 - song"},
 			{"folder", "1 - song2"},
@@ -44,7 +44,7 @@ func TestDefineSongOrder(t *testing.T) {
 			{"folder", "song"},
 			{"folder", "song"},
 		}
-		got, _ := DefineSongOrder(lines)
+		got, _ := DefineTrackOrder(lines)
 		expected := [][]string{
 			{"folder", "00 - song"},
 			{"folder", "01 - song"},
@@ -75,7 +75,7 @@ func TestDefineSongOrder(t *testing.T) {
 	t.Run("Deals with empty input", func(t *testing.T) {
 
 		lines := [][]string{}
-		_, err := DefineSongOrder(lines)
+		_, err := DefineTrackOrder(lines)
 		// expected := [][]string{
 		// 	{"folder", "0 - song"},
 		// 	{"folder", "1 - song2"},
