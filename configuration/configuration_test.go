@@ -1,14 +1,18 @@
 package configuration
 
 import (
+	"path/filepath"
 	"reflect"
 	"testing"
 )
 
 func TestConfiguration(t *testing.T) {
 	t.Run("read the yaml file", func(t *testing.T) {
-		got, err := ReadYaml("./fixtures/config.yaml")
+		path := "./fixtures/config.yaml"
+		absPath, _ := filepath.Abs(path)
+		got, err := ReadYaml(path)
 		want := Config{
+			ConfigPath:   absPath,
 			PlaylistsDir: "/mnt/playlists",
 			Devices: []Device{
 				{

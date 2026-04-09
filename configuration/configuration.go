@@ -3,6 +3,7 @@ package configuration
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -16,6 +17,7 @@ type Device struct {
 }
 
 type Config struct {
+	ConfigPath   string
 	PlaylistsDir string   `yaml:"playlists_dir" validate:"required"`
 	Devices      []Device `yaml:"devices"`
 }
@@ -41,7 +43,8 @@ func ReadYaml(path string) (Config, error) {
 		yaml.Validator(validate),
 		yaml.Strict(),
 	)
-
+	absPath, _ := filepath.Abs(path)
+	v.ConfigPath = absPath
 	if err := dec.Decode(&v); err != nil {
 		return v, err
 	} else {

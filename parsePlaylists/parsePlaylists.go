@@ -18,31 +18,30 @@ func ReadPlaylist(path string) (string, error) {
 	check(err)
 	return string(data), nil
 }
-func DefineTrackOrder(splittedLines [][]string) ([][]string, error) {
-	digitCount := len(strconv.Itoa(len(splittedLines)))
+func DefineTrackOrder(lines []string) ([]string, error) {
+	digitCount := len(strconv.Itoa(len(lines)))
+	var list []string
+	for index, line := range lines {
+		splittedLine := strings.Split(line, "/")
+		trackNameIndex := len(splittedLine) - 1
+		trackName := splittedLine[trackNameIndex]
 
-	for index, line := range splittedLines {
-		trackNameIndex := len(line) - 1
-		trackName := line[trackNameIndex]
-
-		line[trackNameIndex] = fmt.Sprintf(
+		newTrackname := fmt.Sprintf(
 			"%0*d - %s",
 			digitCount,
 			index,
 			trackName)
+		list = append(list, newTrackname)
+
 	}
-	return splittedLines, nil
+	return list, nil
 }
-func ParsePlaylist(path string) ([][]string, error) {
+func ParsePlaylist(path string) ([]string, error) {
 	data, _ := ReadPlaylist(path)
 	if len(data) <= 0 {
 		panic("playlist is empty")
 	}
 	lines := strings.Split(data, "\n")
-	splittedLines := make([][]string, len(lines))
-	for index, line := range lines {
-		splittedLines[index] = strings.Split(line, "/")
-	}
-	splittedLines, _ = DefineTrackOrder(splittedLines)
-	return splittedLines, nil
+	list, _ := DefineTrackOrder(lines)
+	return list, nil
 }

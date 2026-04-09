@@ -1,0 +1,12 @@
+playlists_dir: ./playlists
+devices:
+  - name: teste
+    path: /mnt/teste
+    allowlist: 
+      - playlist1
+
+  - name: teste2
+    path: /mnt/teste2
+    allowlist: 
+      - playlist3
+      - playlist4
