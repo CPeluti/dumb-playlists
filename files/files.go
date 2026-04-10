@@ -77,7 +77,9 @@ func processFiles(deviceName string, config configuration.Config) {
 		}
 	}
 }
-
+func checkPlaylistsOnDevice() {
+	//TODO: check if playlist already exists, if so only copies what's missing and what's extra
+}
 func copy(src, dst string) (int64, error) {
 	sourceFileStat, err := os.Stat(src)
 	if err != nil {
