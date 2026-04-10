@@ -13,6 +13,11 @@ func check(e error) {
 	}
 }
 
+type Output struct {
+	Source []string
+	Target []string
+}
+
 func ReadPlaylist(path string) (string, error) {
 	data, err := os.ReadFile(path)
 	check(err)
@@ -36,12 +41,16 @@ func DefineTrackOrder(lines []string) ([]string, error) {
 	}
 	return list, nil
 }
-func ParsePlaylist(path string) ([]string, error) {
+func ParsePlaylist(path string) (Output, error) {
 	data, _ := ReadPlaylist(path)
 	if len(data) <= 0 {
 		panic("playlist is empty")
 	}
 	lines := strings.Split(data, "\n")
 	list, _ := DefineTrackOrder(lines)
-	return list, nil
+	out := Output{
+		Source: lines,
+		Target: list,
+	}
+	return out, nil
 }

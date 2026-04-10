@@ -1,7 +1,7 @@
 playlists_dir: ./playlists
 devices:
   - name: teste
-    path: /mnt/teste
+    path: /home/caio/projetos/dumb-playlists/files/fixtures/device
     allowlist: 
       - playlist1
 

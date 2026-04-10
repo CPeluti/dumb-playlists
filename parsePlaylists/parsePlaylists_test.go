@@ -16,7 +16,9 @@ func TestDefineSongOrder(t *testing.T) {
 			"0 - song",
 			"1 - song2",
 		}
-		assertCorrect(t, got, expected)
+		if !reflect.DeepEqual(got, expected) {
+			t.Errorf("expected %q but got %q", expected, got)
+		}
 	})
 
 	t.Run("Adds the correct index with 2 digits", func(t *testing.T) {
@@ -69,7 +71,9 @@ func TestDefineSongOrder(t *testing.T) {
 			"20 - song",
 			"21 - song",
 		}
-		assertCorrect(t, got, expected)
+		if !reflect.DeepEqual(got, expected) {
+			t.Errorf("expected %q but got %q", expected, got)
+		}
 	})
 
 	t.Run("Deals with empty input", func(t *testing.T) {
@@ -90,10 +94,16 @@ func TestParsePlayLists(t *testing.T) {
 	t.Run("Parse a valid playlist", func(t *testing.T) {
 		path := "./fixtures/test.m3u"
 		got, _ := ParsePlaylist(path)
-		expected := []string{
-			"0 - 01 track.flac",
-			"1 - 02 track.flac",
-			"2 - 03 track.flac",
+		expected := Output{
+			Source: []string{
+				"artist1/album1/01 track.flac",
+				"artist1/album1/02 track.flac",
+				"artist1/album1/03 track.flac",
+			},
+			Target: []string{"0 - 01 track.flac",
+				"1 - 02 track.flac",
+				"2 - 03 track.flac",
+			},
 		}
 		assertCorrect(t, got, expected)
 	})
@@ -117,7 +127,7 @@ func TestParsePlayLists(t *testing.T) {
 		ParsePlaylist(path)
 	})
 }
-func assertCorrect(t testing.TB, got, want []string) {
+func assertCorrect(t testing.TB, got, want Output) {
 	t.Helper()
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("expected %q but got %q", want, got)

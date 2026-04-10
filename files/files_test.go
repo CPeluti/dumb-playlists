@@ -6,9 +6,10 @@ import (
 )
 
 func TestFiles(t *testing.T) {
-	t.Run("Find the list of files for each playlist", func(t *testing.T) {
+	//TODO: improve tests
+	t.Run("write files to directory", func(t *testing.T) {
 		config, _ := configuration.ReadYaml("./fixtures/config.yaml")
-		prepareFiles("teste", config)
+		processFiles("teste", config)
 	})
 
 }
