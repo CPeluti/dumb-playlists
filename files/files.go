@@ -56,7 +56,7 @@ func getPlaylistsPath(config configuration.Config) (string, error) {
 	return playlistFolderPath, nil
 }
 func processFiles(deviceName string, config configuration.Config) {
-	//TODO: add check to see if target folder exists
+
 	playlistFolderPath, err := getPlaylistsPath(config)
 	if err != nil {
 		panic(err)
@@ -68,6 +68,14 @@ func processFiles(deviceName string, config configuration.Config) {
 			selectedDevice = device
 		}
 	}
+
+	if !checkDirectory(selectedDevice.Path) {
+		err := os.Mkdir(selectedDevice.Path, 0755)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	outputs, _ := prepareOutputs(playlistFolderPath, selectedDevice)
 
 	for _, output := range outputs {
